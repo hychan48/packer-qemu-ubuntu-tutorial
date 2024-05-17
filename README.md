@@ -3,13 +3,15 @@ Ubuntu 24.04 Live Server and Desktop Install
 
 Reference tutorial for building Ubuntu images using KVM/QEMU and Packer
 
+Can build in parallel all three images in about 6 minutes (if Packer cached / downloaded the ISOs)
+
 ## Prerequisites
 ```bash
 sudo apt update -y
 sudo apt install -y qemu-system libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
 sudo apt install -y ovmf cpu-checker cloud-init
 sudo apt install -y git make curl wget unzip
-sudo apt install cpu-checker
+sudo apt install cpu-checker -y
 ```
 ### Packer Binary - Debian/Ubuntu
 ```bash
@@ -40,7 +42,8 @@ kvm-ok
 * Install / Check dependencies
 
 ```bash
-git clone git@github.com:hychan48/packer-qemu-ubuntu-tutorial.git
+# git clone git@github.com:hychan48/packer-qemu-ubuntu-tutorial.git
+git clone https://github.com/hychan48/packer-qemu-ubuntu-tutorial.git
 # builds the cloud-init meta-data and user-data
 cd packer-qemu-ubuntu-tutorial/ubuntu
 # modifies cloud-init files like username and password
@@ -131,9 +134,16 @@ assets
 # Developer's Notes
 ## Environment
 * XUbuntu 24.04
-* /usr/bin/cloud-init 24.1.3-0ubuntu3
+* 
 ```bash
 cloud-init --version
+qemu-system-x86_64 --version
+```
+```bash
+/usr/bin/cloud-init 24.1.3-0ubuntu3
+
+qemu-system-x86_64 --version
+QEMU emulator version 8.2.2 (Debian 1:8.2.2+ds-0ubuntu1)
 ```
 
 ## Known Issues
@@ -142,9 +152,14 @@ cloud-init --version
 
 * [ ] Better cloud-init editing, yq or others tools
   * clouding package
+  * datasource none or nocloud?
 * [ ] auto.pkrvars.hcl
   * make a script to write it
 * [ ] qemu.sh
   * parser
 * [ ] general validations
-* [ ] Packer installer
+* [ ] Packer installer improvements/refactor
+* [ ] packer-maas
+  * borrow from there
+  * [ ] http proxy
+  * [ ] apt proxy

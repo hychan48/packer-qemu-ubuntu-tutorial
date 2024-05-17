@@ -81,6 +81,7 @@ clean:
 configure:
 # @make clean
 	@echo "make configure"
+	packer init .
 	packer build -only "ub-cloudinit*" .
 build: clean configure
 	@echo "make build (all)"
