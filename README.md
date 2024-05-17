@@ -62,11 +62,14 @@ vncviewer localhost:5907
 #### ssh Connection
 ```bash
 # ub24-server
-ssh -p 3455 -o StrictHostKeyChecking=no root@localhost
+ssh -p 3455 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@localhost
+ssh -p 3455 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@localhost
+
 # ub24-desktop
-ssh -p 3456 -o StrictHostKeyChecking=no root@localhost
+ssh -p 3456 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@localhost
+
 # ub22-server
-ssh -p 3457 -o StrictHostKeyChecking=no root@localhost
+ssh -p 3457 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@localhost
 ```
 
 #### Output
@@ -132,6 +135,7 @@ assets
 ```
 
 # Developer's Notes
+* [readme_debug_notes.md](readme_debug_notes.md)
 ## Environment
 * XUbuntu 24.04
 * 
@@ -163,3 +167,5 @@ QEMU emulator version 8.2.2 (Debian 1:8.2.2+ds-0ubuntu1)
   * borrow from there
   * [ ] http proxy
   * [ ] apt proxy
+
+

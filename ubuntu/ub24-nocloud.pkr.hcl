@@ -95,6 +95,10 @@ build {
 
 /* */
 // also needs to change or not
+/**
+* Qemu Plugin ref - Shared Variables
+* https://developer.hashicorp.com/packer/integrations/hashicorp/qemu/latest/components/builder/qemu
+*/
 source "qemu" "nocloud" {
   // output_directory = abspath("${var.output_directory}/${source.name}")
   // iso_url = "file:///var/lib/qemu/images/ubuntu-24.04-live-server-amd64.iso" # to be set
@@ -144,7 +148,7 @@ source "qemu" "nocloud" {
   vtpm = false
   qmp_enable = var.qmp_enable
   cpu_model = "host"
-  
+  // disk_size = "${var.disk_size}" # "40G"
   # Final Image will be available in `output/packerubuntu-*/`
 
 

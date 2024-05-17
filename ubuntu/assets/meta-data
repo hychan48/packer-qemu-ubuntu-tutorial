@@ -1,9 +1,10 @@
 #!cloud-init
+# https://cloudinit.readthedocs.io/en/latest/explanation/instancedata.html
 # important:
-datasource_list: none
-datasource-list: none
+datasource_list: [none]
+# datasource-list: [none]
 # doesn't seem to do much:
 instance_id: ub2404-packer
-instance-id: ub2404-packer
+# instance-id: ub2404-packer
 # local_hostname: ub2404-packer
 # hostname: ub2404-packer
