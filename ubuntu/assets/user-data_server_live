@@ -8,8 +8,8 @@ autoinstall:
   ssh:
     install-server: true
     allow-pw: true
-    ssh_import_id: 
-      - gh:hychan48 # replace with your github username
+    # ssh_import_id: doesn't exist for subiquity
+    # authorized-keys: []
   locale: en_US.UTF-8
   keyboard:
     layout: us

@@ -62,11 +62,14 @@ vncviewer localhost:5907
 #### ssh Connection
 ```bash
 # ub24-server
-ssh -p 3455 -o StrictHostKeyChecking=no root@localhost
+ssh -p 3455 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@localhost
+ssh -p 3455 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@localhost
+
 # ub24-desktop
-ssh -p 3456 -o StrictHostKeyChecking=no root@localhost
+ssh -p 3456 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@localhost
+
 # ub22-server
-ssh -p 3457 -o StrictHostKeyChecking=no root@localhost
+ssh -p 3457 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@localhost
 ```
 
 #### Output
@@ -163,3 +166,28 @@ QEMU emulator version 8.2.2 (Debian 1:8.2.2+ds-0ubuntu1)
   * borrow from there
   * [ ] http proxy
   * [ ] apt proxy
+
+
+## Debug
+```bash
+sudo apt install -y sshpass
+sshpass -p ubuntu ssh -p 3455 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@localhost
+sshpass -p ubuntu ssh -p 3455 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@localhost
+ssh -p 3455 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@localhost
+```
+```bash
+
+# QMP
+nc -U output/ub24-server/ub24-server.monitor
+echo '{ "execute": "qmp_capabilities" }' | nc -U /home/jason/github/packer-qemu-ubuntu-tutorial/ubuntu/output/ub24-server/ub24-server.monitor
+
+dd if=your_disk_image.raw | gzip > your_disk_image.dd.gz
+sudo cloud-init schema --system
+sudo cloud-init status --long
+
+cat /var/lib/cloud/instances/iid-datasource-none/cloud-config.txt
+getent group sudo users cdrom sudo adm users
+getent group users
+getent group | grep users
+getent group
+```
