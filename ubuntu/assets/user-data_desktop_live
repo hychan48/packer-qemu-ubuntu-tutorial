@@ -9,7 +9,7 @@ autoinstall:
   ssh:
     install-server: true
     allow-pw: true
-    ssh_import_id: [gh:hychan48]
+    # ssh_import_id: [gh:hychan48] # invalid key
   locale: en_US.UTF-8
   keyboard:
     layout: us
@@ -55,7 +55,7 @@ autoinstall:
       - name: USER_REPLACE # modified by sed
         gecos: USER_REPLACE
         sudo: ALL=(ALL) NOPASSWD:ALL
-        groups: adm users sudo
+        groups: [adm, users, sudo, cdrom]
         shell: /bin/bash
         lock_passwd: false
         ssh_import_id: [ "gh:hychan48" ]

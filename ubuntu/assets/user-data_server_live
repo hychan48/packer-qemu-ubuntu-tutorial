@@ -53,7 +53,7 @@ autoinstall:
       - name: USER_REPLACE # modified by sed
         gecos: USER_REPLACE
         sudo: ALL=(ALL) NOPASSWD:ALL
-        groups: adm users sudo cdrom
+        groups: [adm, users, sudo, cdrom]
         shell: /bin/bash
         lock_passwd: false
         ssh_import_id: [ "gh:hychan48" ]
