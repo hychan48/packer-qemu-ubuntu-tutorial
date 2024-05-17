@@ -1,0 +1,109 @@
+#cloud-config
+# Ubuntu user-data-server_live
+## ubiquity
+# https://ubuntu.com/server/docs/install/autoinstall-reference
+# https://github.com/canonical/subiquity/blob/main/examples/autoinstall/most-options.yaml
+autoinstall:
+  version: 1
+  ssh:
+    install-server: true
+    allow-pw: true
+    ssh_import_id: 
+      - gh:hychan48 # replace with your github username
+  locale: en_US.UTF-8
+  keyboard:
+    layout: us
+  # apt for casper / ubiquity
+  apt:
+    fallback: offline-install # default is abort. snap is klling it?
+    geoip: true
+
+  shutdown: reboot # poweroff
+  early-commands:
+    - |
+      echo early commands
+      hostname
+  late-commands:
+    - |
+
+      echo 'Autoinstallation complete'
+    - sudo chmod +r /target/etc/cloud/cloud.cfg.d/*.cfg
+    - |
+      echo 'disable_network_activation: true' | sudo tee -a /target/etc/cloud/cloud.cfg.d/99-disable-network-activation.cfg
+    - sudo chmod 711 /target/etc/netplan
+    - |
+      echo debconf
+      apt update && apt install -y efibootmgr
+      efibootmgr -o $(efibootmgr | perl -n -e '/Boot(.+)\* ubuntu/i && print $1')
+################################
+# cloud-init 24 on xubuntu
+  user-data:
+  # - runcmd only runs during the first boot
+    runcmd:
+      - sudo systemctl enable ssh --now
+    # - sudo systemctl enable qemu-guest-agent --now
+    timezone: America/Toronto # more generic
+    hostname: HOSTNAME_REPLACE
+    disable_root: false # default true
+    ssh_import_id: gh:hychan48
+    ssh_pwauth: true # true means allow pw. did this cause issues?
+    users:
+      - default
+      - root
+      - name: USER_REPLACE # modified by sed
+        gecos: USER_REPLACE
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        groups: adm users sudo cdrom
+        shell: /bin/bash
+        lock_passwd: false
+    # https://cloudinit.readthedocs.io/en/latest/reference/modules.html#users-and-groups
+    chpasswd:
+      expire: false
+      users:
+        - name: root
+          password: ubuntu
+          type: text
+        - name: ubuntu
+          password: ubuntu
+          type: text
+        # modified by sed
+        - name: USER_REPLACE
+          password: PASSWORD_REPLACE
+          type: text
+    apt_pipelining: false
+    apt:
+      preserve_sources_list: false
+      conf: |
+        APT {
+            Get {
+                Assume-Yes 'true';
+                Fix-Broken 'true';
+            }
+        }
+      #     Acquire {
+      #         ForceIPv4 'true';
+      #         http { 
+      #             Proxy '192.168.122.1:3142/'; 
+      #         }
+      #     }
+      # }
+    packages:
+      - zsh
+      - tree
+      # - qemu-guest-agent
+      - fish
+
+    package_update: true
+    package_upgrade: true
+    package_reboot_if_required: true
+
+
+    # launchpad lp
+    # https://cloudinit.readthedocs.io/en/23.3.3/reference/network-config-format-v2.html#version-2-configuration-format
+    final_message: |
+      cloud-init has finished
+      version: $version
+      timestamp: $timestamp
+      uptime: $uptime
+      datasource: $datasource
+      

@@ -1,0 +1,9 @@
+#!cloud-init
+# important:
+datasource_list: none
+datasource-list: none
+# doesn't seem to do much:
+instance_id: ub2404-packer
+instance-id: ub2404-packer
+# local_hostname: ub2404-packer
+# hostname: ub2404-packer
