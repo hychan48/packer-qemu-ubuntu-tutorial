@@ -12,8 +12,9 @@ Can build in parallel all three images in about 6 minutes (if Packer cached / do
 # git clone git@github.com:hychan48/packer-qemu-ubuntu-tutorial.git
 git clone https://github.com/hychan48/packer-qemu-ubuntu-tutorial.git
 # builds the cloud-init meta-data and user-data
-cd packer-qemu-ubuntu-tutorial/ubuntu
+cd packer-qemu-ubuntu-tutorial
 # modifies cloud-init files like username and password
+cd ubuntu/
 make configure
 make build
 ```
