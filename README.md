@@ -1,6 +1,6 @@
 # packer-qemu-ubuntu-tutorial
 Ubuntu 24.04 Live Server and Desktop Install
-
+UEFI with OVMF
 Reference tutorial for building Ubuntu images using KVM/QEMU and Packer
 
 Can build in parallel all three images in about 6 minutes (if Packer cached / downloaded the ISOs)
