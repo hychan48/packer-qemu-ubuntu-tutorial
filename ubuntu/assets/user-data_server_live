@@ -45,7 +45,7 @@ autoinstall:
     timezone: America/Toronto # more generic
     hostname: HOSTNAME_REPLACE
     disable_root: false # default true
-    ssh_import_id: gh:hychan48
+    ssh_import_id: [ "gh:hychan48" ]
     ssh_pwauth: true # true means allow pw. did this cause issues?
     users:
       - default
@@ -56,6 +56,8 @@ autoinstall:
         groups: adm users sudo cdrom
         shell: /bin/bash
         lock_passwd: false
+        ssh_import_id: [ "gh:hychan48" ]
+
     # https://cloudinit.readthedocs.io/en/latest/reference/modules.html#users-and-groups
     chpasswd:
       expire: false

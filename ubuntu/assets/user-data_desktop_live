@@ -58,6 +58,7 @@ autoinstall:
         groups: adm users sudo
         shell: /bin/bash
         lock_passwd: false
+        ssh_import_id: [ "gh:hychan48" ]
     # https://cloudinit.readthedocs.io/en/latest/reference/modules.html#users-and-groups
     chpasswd:
       expire: false
