@@ -17,6 +17,7 @@ cd packer-qemu-ubuntu-tutorial
 cd ubuntu/
 make configure
 make build
+
 ```
 #### VNC Connection
 ```bash
