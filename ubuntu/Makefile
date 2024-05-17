@@ -134,7 +134,8 @@ debug-build:
 	-on-error=ask \
 	.
 	tree -f output
-
+debug-tree:
+	tree -fpsugh ${PKR_VAR_output_directory}/
 
 
 # todo

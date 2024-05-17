@@ -135,6 +135,7 @@ assets
 ```
 
 # Developer's Notes
+* [readme_debug_notes.md](readme_debug_notes.md)
 ## Environment
 * XUbuntu 24.04
 * 
@@ -168,26 +169,3 @@ QEMU emulator version 8.2.2 (Debian 1:8.2.2+ds-0ubuntu1)
   * [ ] apt proxy
 
 
-## Debug
-```bash
-sudo apt install -y sshpass
-sshpass -p ubuntu ssh -p 3455 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@localhost
-sshpass -p ubuntu ssh -p 3455 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@localhost
-ssh -p 3455 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@localhost
-```
-```bash
-
-# QMP
-nc -U output/ub24-server/ub24-server.monitor
-echo '{ "execute": "qmp_capabilities" }' | nc -U /home/jason/github/packer-qemu-ubuntu-tutorial/ubuntu/output/ub24-server/ub24-server.monitor
-
-dd if=your_disk_image.raw | gzip > your_disk_image.dd.gz
-sudo cloud-init schema --system
-sudo cloud-init status --long
-
-cat /var/lib/cloud/instances/iid-datasource-none/cloud-config.txt
-getent group sudo users cdrom sudo adm users
-getent group users
-getent group | grep users
-getent group
-```
